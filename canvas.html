@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+
+    <!-- p is the variable we'll use to add a border, like a class we'll call it when we want to use it. 
+       We can manipulate it using properties like border-style, and border-width, to define what kind of border we want -->
+    <style type="text/css">
+    p.dotted {
+      border-style: dotted;
+      border-width: 5px;
+    }
+    </style>
+
+  </head>
+
+  <body>
+
+    <!-- <p class="dotted">  wrapping the border variable 'p' around the entire canvas --> 
+ 
+    <canvas id="canvasOne"></canvas>    
+
+    <script type="text/javascript">
+
+		// Gets a handle to the element with id canvasOne.
+    var canvas = document.getElementById("canvasOne");
+    
+
+    // Increase size of canvas  -  these can all also be modified in '<canvas id="canvasOne" width="200" ... ></canvas>'
+    canvas.width = 500; // increasing the width of the canvas
+    canvas.height = 700; // increasing the height of the canvas
+		canvas.style = "border:5px solid #000000"; // creating a border around the canvas
+
+		// Set the canvas up for drawing in 2D.
+    var ctx = canvas.getContext("2d");  // ctx is the variable used for drawing
+
+
+    // Add name to top of Canvas
+    ctx.fillStyle = 'green'; // change color of text
+    ctx.font = "30px Arial";  // setting the font of the text
+    ctx.fillText("Rory Taaffe", 10, 50); // content, height and width of text
+		
+
+		// Set the fill colour to bright red.
+    ctx.fillStyle = "rgb(255, 0, 0)"; // set the colour of ctx again, but won't affect the one above
+    // ctx.fillStyle = 'red'; // this is the same as above
+		
+		// Create a filled rectangle 
+		ctx.fillRect(20, 90, 50, 30); // 20 is x value, 40 pixels left
+                                  // 60 is y value, 60 pixels from the top left, and in 40 after the x = 40
+                                  // 50 is the width, 30 is the height
+
+
+    // Create a triangle of a different colour
+    // Beginnings of a triangle
+    ctx.beginPath(); // new path
+    ctx.moveTo(400, 30); // moves pen without making a line on canvas. Moves it across right 90 and down 10 : top of triangle
+	  ctx.lineTo(430, 100); // this will create a line from where the pen was (400, 30) to (410, 100) : from top to bottom right
+    ctx.lineTo(370, 100); // this will create a line from where the pen was, to (370, 100) : from bottom right to bottom left
+    ctx.lineTo(400, 30); // this will create a line from where the pen was, to (410, 100) : from bottom left to top
+    ctx.fillStyle = "rgba(0, 0, 255, 60%)"; // change fill colour, a stands for Alpha which controls the transparency, the lower the % the more transparent
+    ctx.fill(); // fill in the triangle/path
+
+    ctx.strokeStyle = "rgb(255, 0, 255)"; // changing the color of the stroke lines, Pink - mix of full red & blue
+    ctx.stroke(); // this is the method that renders and draws the lines, it goes at the end after the lines are written
+                  // without it nothing will show up on the screen
+
+
+                  
+    // Draw a circle
+    ctx.beginPath(); // begins a new path
+    
+    // Theres 2*pi(Math.PI) is a full circle, so to draw a half-circle its 1 pi(Math.PI)
+    ctx.arc(370, 85, 40, 0, 2*Math.PI, false); // 370 is x, 85 is y, 40 is radius, 0 is starting angle, 
+                                          // 2*Math.PI is a full circle, Math.PI is half a circle, these are the radians
+                                          // false defines whether it will move clockwise or anticlockwise
+    ctx.fillStyle = "rgba(250, 250, 0, 50%)"; // change color, transparency of circle
+    ctx.fill(); // fill it in
+
+    ctx.strokeStyle = "rgb(170, 0, 90)";
+    ctx.stroke();
+               
+
+    // Draw another circle
+    ctx.beginPath(); // new path
+    ctx.arc(170, 130, 40, 0, 2*Math.PI, false);
+    ctx.fillStyle = "rgba(25, 250, 25, 50%)"; // change color, transparency of circle
+    ctx.fill(); // fill it in
+
+    ctx.strokeStyle = "rgb(100, 0, 0)";
+    ctx.stroke();
+
+
+
+    // *** Lab 2  Draw a Pacman
+    /*
+    // Practise
+    ctx.beginPath(); // new path
+    ctx.arc(120, 300, 50, 0, 2*Math.PI, true);
+    //ctx.lineTo(120, 300); // draw a line to the middle of the circle
+    ctx.moveTo(120, 300); // move to the middle of the circle
+
+    // 2*Math.PI is the full circle, so 2*Math.PI/9 is 1/9 of the circle, because it's going clockwise with 'true' above, we get the line going at a 40 degree angle from the centre
+    //x = 50*Math.cos(2*Math.PI/9) + 120; // + 120 moves the line to the proper x position of the circle, if not speicified it will think the point is 0,0, top-left of canvas
+    //y = 50*Math.sin(2*Math.PI/9) + 300; // + 300 is for y, so down
+
+    // The circle is split into 18 pieces/radians, the 9 represents where you will draw the line, 0-9 bottom half, 10-18 top half
+    // Easier way of doing it, the 9 represents the bottom half of the circle, so if you go to 12/9 it will bring you to the top half of it
+    x = 50*Math.cos((2/9)*Math.PI) + 120; // two ninth's of PI will bring me 40 degrees down
+    y = 50*Math.sin((2/9)*Math.PI) + 300;
+    ctx.lineTo(x,y); // draw a line using the new x y coordinates from above, it will draw the bottom of the mouth
+
+    ctx.moveTo(120, 300); // move to the middle of the circle
+
+    x = 50*Math.cos((16/9)*Math.PI) + 120; // two ninth's of PI will bring me 40 degrees up
+    y = 50*Math.sin((16/9)*Math.PI) + 300;
+    ctx.lineTo(x,y); // draw the top part of the mouth
+
+    ctx.stroke();
+    */
+
+    // 2nd Pacman
+    // This draws a semi circle going from bottom left to top right
+    ctx.beginPath();
+    ctx.arc(300, 200, 50, 0.25 * Math.PI, 1.25 * Math.PI, false);
+    ctx.fillStyle = "rgb(255, 255, 0)";
+    ctx.fill();
+
+    // Draws a semi circle going from bottom left to top right
+    ctx.beginPath();
+    ctx.arc(300, 200, 50, 0.75 * Math.PI, 1.75 * Math.PI, false);
+    ctx.fill();
+
+    // Draws the small black circle/eye
+    ctx.beginPath();
+    ctx.arc(300, 175, 10, 0, 2 * Math.PI, false);
+    ctx.fillStyle = "rgb(0, 0, 0)";
+    ctx.fill();
+      
+    ctx.stroke();
+
+
+    // 3rd Pacman
+    // This draws a semi circle going from top left to bottom right
+    ctx.beginPath();
+    ctx.arc(100, 450, 50, 1.25 * Math.PI, 0.25 * Math.PI, false);
+    ctx.fillStyle = "rgb(255, 0, 190)";
+    ctx.fill();
+
+    // Draws a semi circle going from top right to bottom left
+    ctx.beginPath();
+    ctx.arc(100, 450, 50, 1.75 * Math.PI, 0.75 * Math.PI, false);
+    ctx.fill();
+
+    // Draws the small black circle/eye
+    ctx.beginPath();
+    ctx.arc(100, 425, 10, 0, 2 * Math.PI, false);
+    ctx.fillStyle = "rgb(0, 0, 0)";
+    ctx.fill();
+      
+    ctx.stroke();
+
+
+    // 4th Pacman
+    // An arc with an opening at the right for the mouth
+    ctx.beginPath();
+    ctx.arc(300, 500, 50, 0.2 * Math.PI, 1.8 * Math.PI, false);
+
+    // The mouth
+    // A line from the end of the arc to the centre
+    ctx.lineTo(300, 500);
+
+    // A line from the centre of the arc to the start
+    ctx.closePath();
+
+    // Fill the pacman shape with yellow
+    ctx.fillStyle = "green";
+    ctx.fill();
+
+    // Draw the black outline (optional)
+    ctx.stroke();
+
+    // Draw the eye
+    ctx.beginPath();
+    ctx.arc(300, 475, 10, 0, 2 * Math.PI, false);
+    ctx.fillStyle = "rgb(0, 0, 0)";
+    ctx.fill();
+
+    /*
+    // Encapsulation
+    // Constructor function for Pacman objects
+    function Pacman(x, y, radius, facing) {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+      this.facing = facing; // boolean, true for left, false for right etc
+
+      this.ctx.arc(x, y, radius, 0, 2*Math.PI, facing);
+    }
+
+    const myPacman = new Pacman()
+    */
+   
+    class Pacman {
+
+      constructor(x, y, radius, facing) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.facing = facing;
+      }
+
+      Draw() {
+      // An arc with an opening at the right for the mouth
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, 50, 0.2 * Math.PI, 1.8 * Math.PI, this.facing);
+
+      // The mouth
+      // A line from the end of the arc to the centre
+      ctx.lineTo(this.x, this.y);
+
+      // A line from the centre of the arc to the start
+      ctx.closePath();
+
+      // Fill the pacman shape with yellow
+      ctx.fillStyle = "white";
+      ctx.fill();
+
+      // Draw the black outline (optional)
+      ctx.stroke();
+
+      // Draw the eye
+      ctx.beginPath();
+      ctx.arc(this.x, this.y - (this.radius), 10, 0, 2 * Math.PI, false); // y is y - 1/2 the radius because it needs to be halfway from the centre to the edge of the circle
+      ctx.fillStyle = "rgb(0, 0, 0)";
+      ctx.fill();
+        }
+
+    }
+
+    let myPacman = new Pacman(200, 500, 30, false);
+    myPacman.Draw();
+
+    </script>
+   
+  </body>
+  
+</html>
